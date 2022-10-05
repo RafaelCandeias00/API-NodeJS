@@ -25,9 +25,10 @@ app.use('/', route);
 
 // Para o servidor ouvir a porta
 server.listen(port);
-console.log('Ouvindo na porta: ' + port)
+server.on('error', onError);
+console.log('Ouvindo na porta: ' + port);
 
-// Normalizando porta da aplicação | (Verificando se tem porta disponível, caso contrário usará a 3000)
+// Normalizando porta da aplicação | (Verificando se tem porta disponível, caso contrário usará a 3000) | Obs: Função retirada do Express
 function normalizePort(val){
     const port = parseInt(val, 10);
 
@@ -40,4 +41,30 @@ function normalizePort(val){
     }
 
     return false;
+}
+
+// Gerenciando erros do servidor
+function onError(error){
+    if(error.syscall !== 'listen'){
+        throw error;
+    }
+
+    const bind = typeof port === 'string' ?
+        'Pipe ' + port :
+        'Port ' + port;
+
+    switch (error.code){
+        case 'EACCES': // Erro de permissão
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+
+        case 'EADDRINUSE': // Erro de endereço em uso
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+
+        default:
+            throw error;
+    }
 }
