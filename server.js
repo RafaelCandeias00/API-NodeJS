@@ -7,7 +7,7 @@ const express = require('express');
 
 // Definindo porta da aplicação
 const app = express();
-const port = 3000;
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 // Criando servidor
@@ -26,3 +26,18 @@ app.use('/', route);
 // Para o servidor ouvir a porta
 server.listen(port);
 console.log('Ouvindo na porta: ' + port)
+
+// Normalizando porta da aplicação | (Verificando se tem porta disponível, caso contrário usará a 3000)
+function normalizePort(val){
+    const port = parseInt(val, 10);
+
+    if(isNaN(port)){
+        return val;
+    }
+
+    if(port >= 0){
+        return port;
+    }
+
+    return false;
+}
