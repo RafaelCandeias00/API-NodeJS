@@ -1,32 +1,20 @@
-'use strict'
-
 // Importando módulos
+const app = require('../src/app');
+const debug = require('debug')('rafael:server');
 const http = require('http');
-const debug = require('debug')('nodestr:server');
-const express = require('express');
 
 // Definindo porta da aplicação
-const app = express();
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 // Criando servidor
 const server = http.createServer(app);
-const router = express.Router(); // Arquivo de rotas
-
-// Configurando de rota inicial
-const route = router.get('/', (req, res, next) => {
-    res.status(200).send({
-        title: "Node Store API",
-        version: "0.0.1"
-    });
-});
-app.use('/', route);
 
 // Para o servidor ouvir a porta
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 console.log('Ouvindo na porta: ' + port);
 
 // Normalizando porta da aplicação | (Verificando se tem porta disponível, caso contrário usará a 3000) | Obs: Função retirada do Express
