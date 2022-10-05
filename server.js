@@ -26,6 +26,7 @@ app.use('/', route);
 // Para o servidor ouvir a porta
 server.listen(port);
 server.on('error', onError);
+server.on('listening', onListening);
 console.log('Ouvindo na porta: ' + port);
 
 // Normalizando porta da aplicação | (Verificando se tem porta disponível, caso contrário usará a 3000) | Obs: Função retirada do Express
@@ -67,4 +68,13 @@ function onError(error){
         default:
             throw error;
     }
+}
+
+// Iniciando o Debug
+function onListening(){
+    const addr = server.address();
+    const bind = typeof addr === 'string' 
+        ? 'pipe ' + addr 
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 }
