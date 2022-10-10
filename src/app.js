@@ -1,10 +1,14 @@
 // Importando módulos
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 // Definindo porta da aplicação
 const app = express();
 const router = express.Router();
+
+// Conecta ao banco
+mongoose.connect('mongodb+srv://rafael:rafael@ndstr.q9ms4nb.mongodb.net/?retryWrites=true&w=majority');
 
 // Carrega as rotas
 const indexRoute = require('./routes/index-route');
