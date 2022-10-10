@@ -6,39 +6,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
 
+// Carrega as rotas
+const indexRoute = require('./routes/index-route');
+const productRoute = require('./routes/products-route')
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Configurando de rota inicial
-const route = router.get('/', (req, res, next) => {
-    res.status(200).send({
-        title: "Node Store API",
-        version: "0.0.1"
-    });
-});
-
-// Método CRUD - CREATE
-const create = router.post('/', (req, res, next) => {
-    res.status(201).send(req.body); // Configurando resposta do servidor e pegando corpo da requisição
-});
-
-// Método CRUD - UPDATE
-const put = router.put('/:id', (req, res, next) => {
-    const id = req.params.id; // Recuperando id passado pela rota
-    res.status(200).send({
-        id: id, 
-        item: req.body 
-    });
-});
-
-const del = router.delete('/', (req, res, next) => {
-    res.status(200).send(req.body);
-});
-
 // Rotas que pode ser utilizadas
-app.use('/', route);
-app.use('/products', create);
-app.use('/products', put);
-app.use('/products', del);
+app.use('/', indexRoute);
+app.use('/products', productRoute);
 
 module.exports = app;
