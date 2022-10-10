@@ -2,24 +2,15 @@
 
 const express = require('express');
 const router = express.Router();
+const controller = require('../controllers/product-controller');
 
 // Método CREATE
-router.post('/', (req, res, next) => {
-    res.status(201).send(req.body); // Configurando resposta do servidor e pegando corpo da requisição
-});
+router.post('/', controller.post);
 
 // Método UPDATE
-router.put('/:id', (req, res, next) => {
-    const id = req.params.id; // Recuperando id passado pela rota
-    res.status(200).send({
-        id: id, 
-        item: req.body 
-    });
-});
+router.put('/:id', controller.put);
 
 // Método DELETE
-router.delete('/', (req, res, next) => {
-    res.status(200).send(req.body);
-});
+router.delete('/', controller.delete);
 
 module.exports = router;
