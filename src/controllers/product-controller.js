@@ -31,6 +31,17 @@ exports.getBySlug = (req, res, next) => {
         });
 }
 
+// Método GET - id
+exports.getById = (req, res, next) => {
+    Product
+        .findById(req.params.id) // passar id por parametro
+        .then(data => { 
+            res.status(200).send(data);
+        }).catch(e => { 
+            res.status(400).send(e);
+        });
+}
+
 // Método CREATE
 exports.post = (req, res, next) => {
     var product = new Product(req.body); // instanciando e passando no corpo da requisição

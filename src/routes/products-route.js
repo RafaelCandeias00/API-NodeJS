@@ -7,6 +7,7 @@ const controller = require('../controllers/product-controller');
 // Método GET
 router.get('/', controller.get);
 router.get('/:slug', controller.getBySlug);
+router.get('/admin/:id', controller.getById);
 
 // Método CREATE
 router.post('/', controller.post);
