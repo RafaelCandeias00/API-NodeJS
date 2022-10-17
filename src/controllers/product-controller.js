@@ -76,7 +76,7 @@ exports.post = (req, res, next) => {
 
 // Método UPDATE
 exports.put = (req, res, next) => {
-    Product 
+    Product
         .findByIdAndUpdate(req.params.id, {
             $set: {
                 title: req.body.title,
@@ -85,7 +85,7 @@ exports.put = (req, res, next) => {
                 slug: req.body.slug
             }
         }).then(x => {
-            res.status(201).send({
+            res.status(200).send({
                 message: "Produto atualizado com sucesso!"
             });
         }).catch(e => {
@@ -98,5 +98,16 @@ exports.put = (req, res, next) => {
 
 // Método DELETE
 exports.delete = (req, res, next) => {
-    res.status(200).send(req.body);
+    Product
+        .findOneAndRemove(req.params.id)
+        .then(x => {
+            res.status(200).send({
+                message: "Produto removido com sucesso!"
+            });
+        }).catch(e => {
+            res.status(400).send({
+                message: "Falha ao remover o produto!",
+                data: e
+            });
+        });
 };
