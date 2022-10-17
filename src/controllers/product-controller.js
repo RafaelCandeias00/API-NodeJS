@@ -24,9 +24,23 @@ exports.getBySlug = (req, res, next) => {
             slug: req.params.slug, // passar slug por parametro
             active: true
         }, 'title descruption price slug tags')
-        .then(data => { 
+        .then(data => {
             res.status(200).send(data);
-        }).catch(e => { 
+        }).catch(e => {
+            res.status(400).send(e);
+        });
+}
+
+// Método GET - Tag
+exports.getByTag = (req, res, next) => {
+    Product
+        .find({
+            tags: req.params.tag, // passar tag por parametro
+            active: true
+        }, 'title descruption price slug tags')
+        .then(data => {
+            res.status(200).send(data);
+        }).catch(e => {
             res.status(400).send(e);
         });
 }
@@ -35,9 +49,9 @@ exports.getBySlug = (req, res, next) => {
 exports.getById = (req, res, next) => {
     Product
         .findById(req.params.id) // passar id por parametro
-        .then(data => { 
+        .then(data => {
             res.status(200).send(data);
-        }).catch(e => { 
+        }).catch(e => {
             res.status(400).send(e);
         });
 }

@@ -8,6 +8,7 @@ const controller = require('../controllers/product-controller');
 router.get('/', controller.get);
 router.get('/:slug', controller.getBySlug);
 router.get('/admin/:id', controller.getById);
+router.get('/tags/:tag',controller.getByTag);
 
 // Método CREATE
 router.post('/', controller.post);
