@@ -4,6 +4,10 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/product-controller');
 
+// Método GET
+router.get('/', controller.get);
+router.get('/:slug', controller.getBySlug);
+
 // Método CREATE
 router.post('/', controller.post);
 
