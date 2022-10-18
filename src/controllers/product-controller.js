@@ -3,6 +3,7 @@
 // importando modelo product
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
+const ValidationContract = require('../validators/fluent-validator');
 
 // Método GET
 exports.get = (req, res, next) => {
@@ -58,6 +59,17 @@ exports.getById = (req, res, next) => {
 
 // Método CREATE
 exports.post = (req, res, next) => {
+    let contract = new ValidationContract();
+    contract.hasMinLen(req.body.title, 3, 'O título deve conter pelo menos 3 caracteres!');
+    contract.hasMinLen(req.body.slug, 3, 'O slug deve conter pelo menos 3 caracteres!');
+    contract.hasMinLen(req.body.description, 3, 'A descrição deve conter pelo menos 3 caracteres!');
+
+    // Se os dados forma inválidos
+    if(!contract.isValid()){
+        res.status(400).send(contract.errors()).end();
+        return;
+    }
+
     var product = new Product(req.body); // instanciando e passando no corpo da requisição
     product
         .save() // salvando produto
