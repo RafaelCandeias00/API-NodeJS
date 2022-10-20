@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const shcema = new Schema({
+const schema = new Schema({
     title:{
         type: String,
         required: [true, "O title é obrigatório!"],
@@ -36,4 +36,4 @@ const shcema = new Schema({
     }]
 });
 
-module.exports = mongoose.model('Product', shcema);
+module.exports = mongoose.model('Product', schema);
