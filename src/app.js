@@ -12,6 +12,7 @@ mongoose.connect('mongodb+srv://rafael:rafael@ndstr.q9ms4nb.mongodb.net/?retryWr
 
 // Carrega models
 const product = require('./models/product');
+const custumer = require('./models/customer');
 
 // Carrega as rotas
 const indexRoute = require('./routes/index-route');
