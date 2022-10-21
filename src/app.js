@@ -11,13 +11,14 @@ const router = express.Router();
 mongoose.connect('mongodb+srv://rafael:rafael@ndstr.q9ms4nb.mongodb.net/?retryWrites=true&w=majority');
 
 // Carrega models
-const product = require('./models/product');
-const custumer = require('./models/customer');
+const Product = require('./models/product');
+const Customer = require('./models/customer');
 const Order = require('./models/order');
 
 // Carrega as rotas
 const indexRoute = require('./routes/index-route');
-const productRoute = require('./routes/products-route')
+const productRoute = require('./routes/products-route');
+const customerRoute = require('./routes/customer-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,5 +26,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Rotas que pode ser utilizadas
 app.use('/', indexRoute);
 app.use('/products', productRoute);
+app.use('/customers', customerRoute);
 
 module.exports = app;
