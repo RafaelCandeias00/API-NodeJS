@@ -4,5 +4,5 @@ global.EMAIL_TMPL = 'Olá, <strong>{0}</strong>, seja bem vindo à Node Store!';
 module.exports = {
     connectionString: 'mongodb+srv://rafael:rafael@ndstr.q9ms4nb.mongodb.net/?retryWrites=true&w=majority',
     sendgridKey: 'TBD', // Colocar chave fornecida pelo sendgrid
-    containerConnectionString: 'TBD'
+    containerConnectionString: 'TBD' // Colocar conexão com o AZURE 
 }

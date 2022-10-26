@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     title:{
         type: String,
-        required: [true, "O title é obrigatório!"],
+        required: [true, "O título é obrigatório!"],
         trim: true
     },
     slug:{
@@ -23,7 +23,7 @@ const schema = new Schema({
     },
     price:{
         type: Number,
-        required: [true, "O price é obrigatório!"]
+        required: [true, "O preço é obrigatório!"]
     },
     active:{
         type: Boolean,
@@ -33,7 +33,12 @@ const schema = new Schema({
     tags:[{
         type: String,
         required: [true, "A tags é obrigatório!"]
-    }]
+    }],
+    image: {
+        type: String,
+        required: [true, "A imagem é obrigatória!"],
+        trim: true
+    }
 });
 
 module.exports = mongoose.model('Product', schema);
