@@ -15,3 +15,8 @@ exports.authenticate = async(body) => {
     });
     return res;
 }
+
+exports.getById = async(id) => {
+    const res = await Customer.findByID(id);
+    return res;
+}
