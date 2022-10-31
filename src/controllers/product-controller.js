@@ -8,24 +8,24 @@ const guid = require('guid');
 var config = require('../config');
 
 // Método GET
-exports.get = async(req, res, next) => {
+exports.get = async (req, res, next) => {
     try {
         var data = await repository.get();
         res.status(200).send(data);
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
     }
-    
+
 }
 
 // Método GET - slug
-exports.getBySlug = async(req, res, next) => {
-    try{
+exports.getBySlug = async (req, res, next) => {
+    try {
         var data = await repository.getBySlug(req.params.slug);
         res.status(200).send(data);
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
@@ -33,11 +33,11 @@ exports.getBySlug = async(req, res, next) => {
 }
 
 // Método GET - Tag
-exports.getByTag = async(req, res, next) => {
-    try{
+exports.getByTag = async (req, res, next) => {
+    try {
         var data = await repository.getByTag(req.params.tag);
         res.status(200).send(data);
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
@@ -45,11 +45,11 @@ exports.getByTag = async(req, res, next) => {
 }
 
 // Método GET - id
-exports.getById = async(req, res, next) => {
-    try{
+exports.getById = async (req, res, next) => {
+    try {
         var data = await repository.getById(req.params.id)
         res.status(200).send(data);
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
@@ -57,7 +57,7 @@ exports.getById = async(req, res, next) => {
 }
 
 // Método CREATE
-exports.post = async(req, res, next) => {
+exports.post = async (req, res, next) => {
     let contract = new ValidationContract();
     contract.hasMinLen(req.body.title, 3, 'O título deve conter pelo menos 3 caracteres!');
     contract.hasMinLen(req.body.slug, 3, 'O slug deve conter pelo menos 3 caracteres!');
@@ -69,7 +69,7 @@ exports.post = async(req, res, next) => {
         return;
     }
 
-    try{
+    try {
         // Cria o Blob Service
         const blobSvc = azure.createBlobService(config.containerConnectionString);
 
@@ -82,8 +82,8 @@ exports.post = async(req, res, next) => {
         // Salva a imagem
         await blobSvc.createBlockBlobFromText('product-images', filename, buffer, {
             contentType: type
-        }, function(error, result, response) {
-            if(error){
+        }, function (error, result, response) {
+            if (error) {
                 filename = 'default-product.png'
             }
         })
@@ -101,7 +101,7 @@ exports.post = async(req, res, next) => {
             message: 'Produto cadastrado com sucesso!'
         });
 
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
@@ -109,13 +109,13 @@ exports.post = async(req, res, next) => {
 };
 
 // Método UPDATE
-exports.put = async(req, res, next) => {
-    try{
+exports.put = async (req, res, next) => {
+    try {
         await repository.update(req.params.id, req.body);
         res.status(200).send({
             message: "Produto atualizado com sucesso!"
         });
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });
@@ -123,13 +123,13 @@ exports.put = async(req, res, next) => {
 };
 
 // Método DELETE
-exports.delete = async(req, res, next) => {
-    try{
+exports.delete = async (req, res, next) => {
+    try {
         await repository.delete(req.body.id);
         res.status(200).send({
             message: "Produto removido com sucesso!"
         });
-    }catch(e){
+    } catch (e) {
         res.status(500).send({
             message: 'Falha ao processar sua requisição'
         });

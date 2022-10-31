@@ -12,12 +12,12 @@ router.get('/admin/:id', controller.getById);
 router.get('/tags/:tag',controller.getByTag);
 
 // Método CREATE
-router.post('/', authService.authorize, controller.post);
+router.post('/', authService.isAdmin, controller.post);
 
 // Método UPDATE
-router.put('/:id', authService.authorize, controller.put);
+router.put('/:id', authService.isAdmin, controller.put);
 
 // Método DELETE
-router.delete('/:id', authService.authorize, controller.delete);
+router.delete('/:id', authService.isAdmin, controller.delete);
 
 module.exports = router;
